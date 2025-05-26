@@ -39,11 +39,9 @@ def get_weather_data(city_name):
         hourly_temperature_2m = hourly.Variables(0).ValuesAsNumpy()
         times_raw = hourly.Time()
 
-        # 🛠 Генерируем массив времени вручную
         start_time = datetime.fromtimestamp(times_raw, tz=timezone.utc)
         times = [start_time + timedelta(hours=i) for i in range(len(hourly_temperature_2m))]
 
-        # 📦 Формируем данные для отображения
         hourly_data = []
         for i, t in enumerate(times):
             temp = hourly_temperature_2m[i]

@@ -1,0 +1,8 @@
+Django>=4.2
+requests
+requests-cache
+retry-requests
+numpy
+pandas
+gunicorn
+openmeteo-requests
