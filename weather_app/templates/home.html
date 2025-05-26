@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Прогноз погоды</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h1>Погода</h1>
+
+    <form method="get" class="my-3">
+        <input type="text" name="city" placeholder="Введите город" required class="form-control mb-2">
+        <button type="submit" class="btn btn-primary">Узнать погоду</button>
+    </form>
+
+    {% if last_city %}
+        <p>Вы недавно смотрели погоду в: <strong>{{ last_city }}</strong></p>
+    {% endif %}
+
+    {% if forecast %}
+        <h2>Прогноз для {{ city }}</h2>
+        <p>Координаты: {{ forecast.latitude }}, {{ forecast.longitude }}</p>
+
+        <h3>Ближайшие прогнозы:</h3>
+        <div class="row row-cols-2 row-cols-md-4 g-3">
+            {% for item in hourly_data|slice:":12" %}
+                <div class="col">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ item.time }}</h5>
+                            <p class="card-text">{{ item.temperature }} °C</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% elif error %}
+        <p class="text-danger">{{ error }}</p>
+    {% endif %}
+</div>
+</body>
+</html>
